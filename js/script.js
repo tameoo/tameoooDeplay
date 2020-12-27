@@ -1,16 +1,10 @@
 const cursor = document.querySelector('.home__typing .cursor'),
         menu = document.querySelector('.menu__wrapper'),
-        menuHeader = document.querySelector('.menu__header'),
         closeBtn = document.querySelector('.menu__close'),
         menuBtn = document.querySelector('.header__burger'),
-        overlay = document.querySelector('.menu__overlay');
+        overlay = document.querySelector('.menu__overlay'),
+        body = document.querySelector('body');
         
-    menuHeader.addEventListener('click', (e) => {
-        e.preventDefault();
-        window.reload();
-    });    
-
-
 
     let i = 0;
     let index = 0;
@@ -64,10 +58,12 @@ const cursor = document.querySelector('.home__typing .cursor'),
 
     menuBtn.addEventListener('click', () => {
         openMenu();
+        body.style.overflow = 'hidden';
     });
     
     closeBtn.addEventListener('click', () => {
         closeMenu();
+        body.style.overflow = 'visible';
     });
 
     function openMenu(){
@@ -91,12 +87,13 @@ const menuLink = document.querySelectorAll('.menu__link');
     });
 
 const skillsRate = document.querySelectorAll('.about__skill-number span'),
-      skillsRange = document.querySelectorAll('.about__skill-progress');
+      skillsRange = document.querySelectorAll('.about__skill-progress'),
+      skillBox = document.querySelector('.about__skills');
     
     let number;
     let j = 0;
-    const setOfnumber = [];
     let rate = 0;
+    const setOfnumber = [];
       
     for(let i = 0; i < skillsRate.length; i++) {
         setOfnumber[i] = skillsRate[i].innerHTML.substring(0 , 2);
@@ -109,7 +106,7 @@ const skillsRate = document.querySelectorAll('.about__skill-number span'),
             skillsRange[rate].style.width = `${j}%`;
             skillsRate[rate].innerHTML = j;
             j++;
-            setTimeout(setRange,5);
+            setTimeout(setRange,8);
         } else{
             j = 0;
             rate++;
@@ -118,7 +115,15 @@ const skillsRate = document.querySelectorAll('.about__skill-number span'),
     }
         
 const serviceRange = document.querySelectorAll('.service__pointer'),
-      serviceItem = document.querySelectorAll('.service__upper-item');  
+      serviceItem = document.querySelectorAll('.service__upper-item'),
+      serviceUpperContainer = document.querySelector('.service__upper-container'),
+      serviceLowerContainer = document.querySelector('.service__lower-inner');  
+
+    // if(window.innerWidth < 569){
+    //     serviceItem.forEach(service => {
+            
+    //     });
+    // }
 
     let pointer = 0;
     let point = 0;
@@ -126,10 +131,9 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
         
     for(let i = 0; i < serviceRange.length; i++) {
         setOfPointer[i] = serviceRange[i].innerHTML;
-        serviceRange[i].innerHTML = '0';
+        serviceRange[i].innerHTML = ' ';
     }
 
-    
 
     function showPointer() {
         if(pointer <= setOfPointer[point]){
@@ -139,59 +143,87 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
                 pointer++;
             }
             if(point >= 1 && point < 3){
-                pointer += 10;
+                pointer += 25;
             }
             if(point == 3){
-                pointer += 100;
+                pointer += 250;
             }
-            setTimeout(showPointer,5);
+            setTimeout(showPointer,10);
         } else {
             point++;
             pointer = 0;
             if(point < setOfPointer.length){
-                setTimeout(showPointer,0); 
+                setTimeout(showPointer,10); 
             }
         }
     }
+
+
+    if(window.innerWidth < 569){
+        serviceItem.forEach(service => {
+            service.removeAttribute('class');
+            service.classList.add('service__upper-item');
+        });
+    }
+
+    let service = 0;
+    function showService(){
+        if(service < serviceItem.length){
+            serviceItem[service].style.display = 'block';
+            body.style.cssText = 'overflow-x: hidden;';
+            service++;
+            setTimeout(showService, 200);
+        }
+    }
+
     
-
-
-    let togglerForSkill = true;
-    let togglerForService = true;
-
-const portfolioBtn = document.querySelectorAll('.portfolio__works-btn'),
-      containerWithWorks = document.querySelectorAll('.portfolio__works-container');
-
+    const portfolioBtn = document.querySelectorAll('.portfolio__works-btn'),
+    containerWithWorks = document.querySelectorAll('.portfolio__works-container');
+    
     portfolioBtn.forEach((btn ,inx)=> {
         btn.addEventListener('click', () => {
             portfolioBtn.forEach(item => {  
                 item.classList.remove('portfolio__works-btn_active');
             });
-
+            
             btn.classList.toggle('portfolio__works-btn_active');
-
+            
             containerWithWorks.forEach(works => {
                 works.style.display = 'none';
             });
             containerWithWorks[inx].style.display = 'grid';
         });
     });
+    
 
-
+    let togglerForSkill = true;
+    let togglerForService = true;
+    let togglerForContainer = true;
 
     window.addEventListener('scroll', () => {
-        if(window.pageYOffset > 350 && togglerForSkill){
+        if(isVisible(skillBox) && togglerForSkill){
             setRange();
             togglerForSkill = false;
         }
-        if(window.pageYOffset > 1400 && togglerForService){
-            serviceItem.forEach(item => {
-                item.style.display = 'block';
-            });
-            showPointer();
+        if(isVisible(serviceUpperContainer) && togglerForService){
+            showService();
             togglerForService = false;
         }
+        
+        if(isVisible(serviceLowerContainer) && togglerForContainer){
+            showPointer();
+            togglerForContainer = false;
+        }
     });
-
-
-   
+    
+    function isVisible (element) {
+        const { top, bottom } = element.getBoundingClientRect();
+        const vHeight = (window.innerHeight || document.documentElement.clientHeight);
+      
+        return (
+          (top > 0 || bottom > 0) &&
+          top < vHeight
+        );
+      }
+    
+    
