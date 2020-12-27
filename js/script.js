@@ -83,6 +83,7 @@ const menuLink = document.querySelectorAll('.menu__link');
     menuLink.forEach(link => {
         link.addEventListener('click', () => {
             closeMenu();
+            body.style.overflow = 'visible';
         });
     });
 
