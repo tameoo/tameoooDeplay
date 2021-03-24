@@ -27,7 +27,7 @@ const cursor = document.querySelector('.home__typing .cursor'),
 
     function deleteWriter() {
 
-        if((words.length > 0)){
+        if((words.length > 0)) {
             words.pop();
             document.querySelector('.home__typing .writer').innerHTML = words.join("");
             setTimeout(deleteWriter, 100);
@@ -39,14 +39,15 @@ const cursor = document.querySelector('.home__typing .cursor'),
 
     }
 
-
     function incrementText() {
-        if(index < txt.length){
+
+        if(index < txt.length) {
             index++;
         }
-        if(index == txt.length){
+        if(index == txt.length) {
             index = 0;
         } 
+
     }
 
     function cursorOpacity() {
@@ -66,16 +67,16 @@ const cursor = document.querySelector('.home__typing .cursor'),
         body.style.overflow = 'visible';
     });
 
-    function openMenu(){
+    function openMenu() {
         menu.style.transform = 'translateX(0)';
-        overlay.style.display = 'block';
         closeBtn.style.transform = 'rotate(360deg)';
+        overlay.style.display = 'block';
     }
 
     function closeMenu() {
-        overlay.style.display = 'none';
         menu.style.transform = 'translateX(-100%)';
         closeBtn.style.transform = 'rotate(-360deg)';
+        overlay.style.display = 'none';
     }
 
 const menuLink = document.querySelectorAll('.menu__link');
@@ -103,28 +104,24 @@ const skillsRate = document.querySelectorAll('.about__skill-number span'),
         
     
     function setRange() {
-        if(j <= setOfnumber[rate]){
+
+        if(j <= setOfnumber[rate]) {
             skillsRange[rate].style.width = `${j}%`;
             skillsRate[rate].innerHTML = j;
             j++;
             setTimeout(setRange,8);
-        } else{
+        } else {
             j = 0;
             rate++;
             setTimeout(setRange,50);
         }
+
     }
         
 const serviceRange = document.querySelectorAll('.service__pointer'),
       serviceItem = document.querySelectorAll('.service__upper-item'),
       serviceUpperContainer = document.querySelector('.service__upper-container'),
       serviceLowerContainer = document.querySelector('.service__lower-inner');  
-
-    // if(window.innerWidth < 569){
-    //     serviceItem.forEach(service => {
-            
-    //     });
-    // }
 
     let pointer = 0;
     let point = 0;
@@ -137,30 +134,32 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
 
 
     function showPointer() {
-        if(pointer <= setOfPointer[point]){
+
+        if(pointer <= setOfPointer[point]) {
             serviceRange[point].innerHTML = ' ';
             serviceRange[point].innerHTML += pointer;
-            if(point == 0){
+            if(point == 0) {
                 pointer++;
             }
-            if(point >= 1 && point < 3){
+            if(point >= 1 && point < 3) {
                 pointer += 25;
             }
-            if(point == 3){
+            if(point == 3) {
                 pointer += 250;
             }
             setTimeout(showPointer,10);
         } else {
             point++;
             pointer = 0;
-            if(point < setOfPointer.length){
+            if(point < setOfPointer.length) {
                 setTimeout(showPointer,10); 
             }
         }
+        
     }
 
 
-    if(window.innerWidth < 569){
+    if(window.innerWidth < 569) {
         serviceItem.forEach(service => {
             service.removeAttribute('class');
             service.classList.add('service__upper-item');
@@ -168,20 +167,23 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
     }
 
     let service = 0;
-    function showService(){
-        if(service < serviceItem.length){
-            serviceItem[service].style.display = 'block';
+
+    function showService() {
+
+        if(service < serviceItem.length) {
+            serviceItem[service].style.display = 'inline-block';
             body.style.cssText = 'overflow-x: hidden;';
             service++;
             setTimeout(showService, 200);
         }
-    }
 
+    }
     
     const portfolioBtn = document.querySelectorAll('.portfolio__works-btn'),
     containerWithWorks = document.querySelectorAll('.portfolio__works-container');
     
     portfolioBtn.forEach((btn ,inx)=> {
+
         btn.addEventListener('click', () => {
             portfolioBtn.forEach(item => {  
                 item.classList.remove('portfolio__works-btn_active');
@@ -192,8 +194,10 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
             containerWithWorks.forEach(works => {
                 works.style.display = 'none';
             });
+            
             containerWithWorks[inx].style.display = 'grid';
         });
+
     });
     
 
@@ -202,19 +206,22 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
     let togglerForContainer = true;
 
     window.addEventListener('scroll', () => {
-        if(isVisible(skillBox) && togglerForSkill){
+
+        if(isVisible(skillBox) && togglerForSkill) {
             setRange();
             togglerForSkill = false;
         }
-        if(isVisible(serviceUpperContainer) && togglerForService){
+
+        if(isVisible(serviceUpperContainer) && togglerForService) {
             showService();
             togglerForService = false;
         }
         
-        if(isVisible(serviceLowerContainer) && togglerForContainer){
+        if(isVisible(serviceLowerContainer) && togglerForContainer) {
             showPointer();
             togglerForContainer = false;
         }
+
     });
     
     function isVisible (element) {
@@ -225,6 +232,6 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
           (top > 0 || bottom > 0) &&
           top < vHeight
         );
-      }
+    }
     
     
