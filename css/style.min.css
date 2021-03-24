@@ -659,7 +659,7 @@ h1.glitch::after {
 }
 
 .about__descr {
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 300;
     color: #eee;
     margin: 40px 0 20px 0
@@ -1138,10 +1138,6 @@ h1.glitch::after {
         font-size: 45px
     }
 
-    .about__descr {
-        font-size: 12px
-    }
-
     .portfolio__works-container {
         grid-template-columns: 280px 280px 280px
     }
@@ -1175,10 +1171,6 @@ h1.glitch::after {
 
     .text-title {
         font-size: 40px
-    }
-
-    .about__descr {
-        font-size: 12px
     }
 
     .portfolio__works-container {
@@ -1232,9 +1224,6 @@ h1.glitch::after {
         font-size: 35px
     }
 
-    .about__descr {
-        font-size: 12px
-    }
 
     .service__pointer {
         font-size: 20px
@@ -1366,7 +1355,7 @@ h1.glitch::after {
     }
 
     .about__descr {
-        font-size: 12px
+        font-size: 14px
     }
 
     .about .text-title {
