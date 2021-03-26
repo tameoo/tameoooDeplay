@@ -1,46 +1,55 @@
-<?php 
+<?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+require 'Exception.php';
+require 'PHPMailer.php';
+require 'SMTP.php';
 
-$name = $_POST['name'];
-$phone = $_POST['phone'];
-$email = $_POST['email'];
-$message =$_POST['message'];
+$errors = [];
 
-require_once('phpmailer/PHPMailerAutoload.php');
-$mail = new PHPMailer;
-$mail->CharSet = 'utf-8';
+if(isset($_POST["name"]) && isset($_POST["phone"]) && isset($_POST["email"]))  {
+    $name = $_POST["name"];
+    $phone = $_POST["phone"];
+    $email = $_POST["email"];
 
-// $mail->SMTPDebug = 3;                               // Enable verbose debug output
+    //I skipped the validation for shorter code
+    if(empty($name)) {
+        $errors[] = "Name cannot be empty!";
+    }
 
-$mail->isSMTP();                                      // Set mailer to use SMTP
-$mail->Host = 'smtp.gmail.com';  // Specify main and backup SMTP servers
-$mail->SMTPAuth = true;                               // Enable SMTP authentication
-$mail->Username = '190103483@stu.sdu.edu.kz';                 // Наш логин
-$mail->Password = 'tamer123';                           // Наш пароль от ящика
-$mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-$mail->Port = 465;                                    // TCP port to connect to
- 
-$mail->setFrom('190103483@stu.sdu.edu.kz', 'Tameooo');   // От кого письмо 
-$mail->addAddress('fosahi1998@astarmax.com');     // Add a recipient
-//$mail->addAddress('ellen@example.com');               // Name is optional
-//$mail->addReplyTo('info@example.com', 'Information');
-//$mail->addCC('cc@example.com');
-//$mail->addBCC('bcc@example.com');
-//$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-//$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
-$mail->isHTML(true);                                  // Set email format to HTML
+    if(empty($phone)) {
+        $errors[] = "Address cannot be empty!";
+    }
 
-$mail->Subject = 'Данные';
-$mail->Body    = '
-		Пользователь оставил данные <br> 
-	Name: ' . $name . ' <br>
-	Phone: ' . $phone . '<br>
-	E-mail: ' . $email . '<br>
-	Message: ' .$message . '';
 
-if($mail->send()) {
-    return true;
-} else {
-    return false;
+    if (!empty($errors)) {
+        echo json_encode($errors); //Sending back the array of string errors
+    } else {
+        $mail2 = new PHPMailer();
+        $mail2->CharSet = "UTF-8";
+        $contentBodyForFirm = '<html><body><div  style="text-align:center; width: 500px; display:block; margin-left: auto; 
+        margin-right: auto;"><p style="text-align:center;"><h2>' . $name . ' ' . $phone . '</div></body></html>';
+
+        $mail2->setFrom($email, $name); //Who is sending the message
+        $mail2->addAddress("tameoooo13@gmail.com"); //Set who the message is to be sent to
+        $mail2->Subject = 'Order';
+        $mail2->isHTML(TRUE);
+        $mail2->Body = $contentBodyForFirm;
+        $mail2->isSMTP();
+        $mail2->charSet = "UTF-8";
+        $mail2->Host = 'smtp.gmail.com';
+        $mail2->SMTPAuth = TRUE;
+        $mail2->SMTPSecure = 'tls';
+        $mail2->Username = "190103483@stu.sdu.edu.kz";
+        $mail2->Password = 'tamer123';
+        $mail2->Port = 587;
+        if(!$mail2->Send())
+        {
+            echo "Something went wrong!";
+        }
+        echo json_encode([]); //Sendning back an empty array
+
+    }
 }
 
 ?>

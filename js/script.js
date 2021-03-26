@@ -248,13 +248,12 @@ const form = document.querySelector('.form'),
 
         if(error === 0){
             btn.innerHTML = '<img src="/img/spinner.svg"/>'
-            let response = await fetch('./php/smart.php', {
+            let response = await fetch('smart.php', {
                 method: 'POST',
                 body: formData,
             });
 
             if(response.ok){
-                // let result = response.json();
                 btn.innerHTML = 'Submit'
                 form.reset();
             } else {
