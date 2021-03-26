@@ -608,9 +608,14 @@ h1.glitch::after {
 
 .btn:hover {
     background-color: inherit;
-    border: 2px solid #eb83f8;
     color: #fff;
+    border: 2px solid #eb83f8;
     transform: scale(1.1)
+}
+
+.home__btn a{
+    color: #fff;
+    text-decoration: none;
 }
 
 .about__wrapper {
@@ -1114,6 +1119,17 @@ h1.glitch::after {
     transform: rotate(360deg)
 }
 
+.valid-text{
+    color: red;
+    text-align: center;
+    margin-bottom: 7px;
+    display: none; 
+}
+
+.valid-text.error{
+    display: block;
+}
+
 @media (min-width:1200px) and (max-width:1330px) {
     h1.glitch {
         font-size: 80px
@@ -1556,7 +1572,7 @@ h1.glitch::after {
         font-size: 13px
     }
 
-    __img img:hover {
+    img:hover {
         transform: none
     }
 }
@@ -1586,7 +1602,11 @@ h1.glitch::after {
     .home__btn {
         width: 120px;
         height: 40px;
-        font-size: 10px
+        font-size: 9px
+    }
+
+    img:hover {
+        transform: none
     }
 }
 
@@ -1653,5 +1673,9 @@ h1.glitch::after {
 
     .portfolio__works-btn {
         font-size: 11px
+    }
+
+    img:hover {
+        transform: none
     }
 }

@@ -8,7 +8,7 @@ const cursor = document.querySelector('.home__typing .cursor'),
 
     let i = 0;
     let index = 0;
-    const txt = ['Web developer', 'PHP Developer', 'UX/UI Designer', 'Mobile expert']; 
+    const txt = ['Web developer', 'UX/UI Designer', 'Mobile expert']; 
     const speed = 200; 
     let words = txt[index].split("");
 
@@ -171,7 +171,7 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
     function showService() {
 
         if(service < serviceItem.length) {
-            serviceItem[service].style.display = 'inline-block';
+            serviceItem[service].style.display = 'block';
             body.style.cssText = 'overflow-x: hidden;';
             service++;
             setTimeout(showService, 200);
@@ -233,5 +233,48 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
           top < vHeight
         );
     }
+
+
+const form = document.querySelector('.form'),
+    inputs = form.querySelectorAll('input'),
+    validtext = document.querySelector('.valid-text');
+    btn = form.querySelector('button span') 
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const error = validation();
+        let formData = new FormData(form);
+
+        if(error === 0){
+            btn.innerHTML = '<img src="/img/spinner.svg"/>'
+            let response = await fetch('./php/smart.php', {
+                method: 'POST',
+                body: formData,
+            });
+
+            if(response.ok){
+                // let result = response.json();
+                btn.innerHTML = 'Submit'
+                form.reset();
+            } else {
+                btn.innerHTML = 'Submit'
+            }
+
+        } else {
+            validtext.classList.add('error');
+        }
+    });
     
-    
+    function validation() {
+
+        let error = 0;
+
+        inputs.forEach(input => {
+            if(input.value.length < 6){
+                error++;        
+            }
+        })
+
+        return error;
+    }    
