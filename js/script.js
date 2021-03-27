@@ -179,28 +179,6 @@ const serviceRange = document.querySelectorAll('.service__pointer'),
 
     }
     
-    const portfolioBtn = document.querySelectorAll('.portfolio__works-btn'),
-    containerWithWorks = document.querySelectorAll('.portfolio__works-container');
-    
-    portfolioBtn.forEach((btn ,inx)=> {
-
-        btn.addEventListener('click', () => {
-            portfolioBtn.forEach(item => {  
-                item.classList.remove('portfolio__works-btn_active');
-            });
-            
-            btn.classList.toggle('portfolio__works-btn_active');
-            
-            containerWithWorks.forEach(works => {
-                works.style.display = 'none';
-            });
-            
-            containerWithWorks[inx].style.display = 'grid';
-        });
-
-    });
-    
-
     let togglerForSkill = true;
     let togglerForService = true;
     let togglerForContainer = true;
