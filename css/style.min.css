@@ -888,8 +888,18 @@ h1.glitch::after {
     font-size: 20px;
     text-decoration: none;
     background-color:#251170;
-    box-shadow: 0px 0px 5px 2px #fff;
     border-radius: 10px;
+    transition: .3s all;
+}
+
+.portfolio__works-item:hover {
+    box-shadow: 0px 0px 5px 2px #fff;
+}
+.portfolio-img{
+    width: 100px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 10px;
 }
 
 .portfolio__text{
